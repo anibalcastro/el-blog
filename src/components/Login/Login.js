@@ -36,7 +36,7 @@ function Login() {
                     console.log('state: ', data);
                 });
         }
-    });
+    }, []);
 
 
 
