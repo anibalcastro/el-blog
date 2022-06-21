@@ -23,7 +23,7 @@ function Dashboard() {
                     //Data
                     const response = res.data;
                     for (let x in response) {
-                        if (response[x].userId === idUser) {
+                        if (response[x].userId ===  parseInt(idUser)) {
                             albumUser.push({
                                 'userId': response[x].userId,
                                 'id': response[x].id,

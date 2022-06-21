@@ -25,6 +25,13 @@ function Photos() {
 
     return (
         <React.Fragment>
+            <div className="container">
+                <div id='contHeader' className="jumbotron">
+                    <h1>Photos</h1>
+                    <p>--------------------------------------------------------------</p>
+                </div>
+            </div>
+
             {photos[0] ? <div className="row">
                 {photos.map((photo) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={photo.id}>

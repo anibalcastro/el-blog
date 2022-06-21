@@ -24,7 +24,7 @@ function Login() {
     useEffect(() => {
         document.title = 'El Blog - Login';
         if (cookies.get('id')) {
-            //window.location.href = "./menu";
+            window.location.href = "./dashboard";
         }
         else {
             axios.get('https://jsonplaceholder.typicode.com/users')
