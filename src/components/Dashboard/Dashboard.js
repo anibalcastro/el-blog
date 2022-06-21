@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/Dashboard.css';
+import './Dashboard.css';
 
 
 function Dashboard() {
@@ -23,7 +23,7 @@ function Dashboard() {
                     //Data
                     const response = res.data;
                     for (let x in response) {
-                        if (response[x].userId == idUser) {
+                        if (response[x].userId === idUser) {
                             albumUser.push({
                                 'userId': response[x].userId,
                                 'id': response[x].id,

@@ -3,6 +3,7 @@ import "./Header.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Images from '../Images/Logo.png';
 import Cookie from 'universal-cookie';
+//import {link} from 'react-router-dom';
 
 const cookie = new Cookie();
 
@@ -31,7 +32,7 @@ function Header() {
     return (
         <React.Fragment >
             <nav id='header' className="navbar navbar-light bg-light" >
-                <a className="navbar-brand" href='google.com' >
+                <a className="navbar-brand" href='localhost:3000/' >
                     <img className='logo' src={Images} alt='logo'></img>
                 </a>
                 {

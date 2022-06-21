@@ -56,7 +56,7 @@ function Login() {
                 cookies.set('adress', data[x].adress, { path: "/" });
                 cookies.set('phone', data[x].phone, { path: "/" });
                 cookies.set('website', data[x].website, { path: "/" });
-                window.location.href = "./menu";
+                window.location.href = "./dashboard";
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
                 break;
