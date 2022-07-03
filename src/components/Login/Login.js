@@ -3,9 +3,6 @@ import "./Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-const data = [];
-
-
 
 
 function Login(props) {
@@ -59,9 +56,8 @@ function Login(props) {
                     username: users[x].username,
                     email: users[x].email
                 }
-                props.setUser(data);
                 setDataUser(json);
-                data.push(json);
+                props.setUser(dataUser);
                 //window.location.href = "./dashboard";
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
