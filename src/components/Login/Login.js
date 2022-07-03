@@ -2,13 +2,15 @@ import React, { useEffect, useState, useCallback } from 'react';
 import "./Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import Cookie from 'universal-cookie';
+
+const data = [];
 
 
 
-function Login() {
-    const cookies = new Cookie();
-    const [data, setData] = useState([]);
+
+function Login(props) {
+    const [users, setUsers] = useState([]);
+    const [dataUser, setDataUser] = useState([]);
 
     //https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
     const [inputValues, setInputValues] = useState({
@@ -23,40 +25,44 @@ function Login() {
     //UseEffect
     useEffect(() => {
         document.title = 'El Blog - Login';
-        if (cookies.get('id')) {
+        /*if (!dataUser) {
             window.location.href = "./dashboard";
         }
         else {
+            */
             axios.get('https://jsonplaceholder.typicode.com/users')
                 .then(res => {
                     //Data
                     const response = res.data;
-                    setData(response);
-                    console.log('data: ', response);
-                    console.log('state: ', data);
+                    setUsers(response);
+                    console.log('users: ', response);
+                    console.log('state: ', users);
                 });
-        }
+        //}
     }, []);
+
 
 
 
     const iniciarSesion = () => {
         let dataEncontrada = false;
-        console.log(data);
+        console.log(users);
         console.log(inputValues.username);
         console.log(inputValues.password);
-        for (let x in data) {
-            if (((data[x].username === inputValues.username) || (data[x].email === inputValues.username)) && (data[x].address.zipcode === inputValues.password)) {
+        for (let x in users) {
+            if (((users[x].username === inputValues.username) || (users[x].email === inputValues.username)) && (users[x].address.zipcode === inputValues.password)) {
                 console.log('Datos Correctos')
-                alert(`Bienvenido ${data[x].name}`);
-                cookies.set('id', data[x].id, { path: "/" });
-                cookies.set('name', data[x].name, { path: "/" });
-                cookies.set('username', data[x].username, { path: "/" });
-                cookies.set('email', data[x].email, { path: "/" });
-                cookies.set('adress', data[x].adress, { path: "/" });
-                cookies.set('phone', data[x].phone, { path: "/" });
-                cookies.set('website', data[x].website, { path: "/" });
-                window.location.href = "./dashboard";
+                alert(`Bienvenido ${users[x].name}`);
+                let json = {
+                    id: users[x].id, 
+                    name: users[x].name,
+                    username: users[x].username,
+                    email: users[x].email
+                }
+                props.setUser(data);
+                setDataUser(json);
+                data.push(json);
+                //window.location.href = "./dashboard";
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
                 break;

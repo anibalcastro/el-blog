@@ -3,12 +3,20 @@ import axios from 'axios';
 import './Photos.css';
 import Cookies from "universal-cookie";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ImageModal from '../ImageModal/ImageModal';
 
 function Photos() {
     const cookies = new Cookies();
     const [photos, setPhotos] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+
+    //const showModal = () => setIsOpen((prev) => !prev);
+
+
+
 
     useEffect(() => {
+        console.log(isOpen);
         document.title = 'El Blog - Photos';
         if (cookies.get('id')) {
             axios.get('https://jsonplaceholder.typicode.com/photos')
@@ -16,8 +24,8 @@ function Photos() {
                     //Data
                     const response = res.data;
                     setPhotos(response);
-                    console.log('data: ', response);
-                    console.log('state: ', photos);
+                   // console.log('data: ', response);
+                    //console.log('state: ', photos);
                 });
         }
     }, []);
@@ -36,8 +44,12 @@ function Photos() {
                 {photos.map((photo) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={photo.id}>
                         <div id='contImg' className="thumbnail img-responsive">
-                            <a href={`/myphotos `} title={photo.title}><img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} /> </a>
-                            <h6>{photo.title}</h6>
+                            <a href={`/myphotos/${photo.id}`}>
+                                <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} />
+                                <h6>{photo.title}</h6>
+                            </a>
+                            
+                        
                         </div>
                     </div>
                 ))}

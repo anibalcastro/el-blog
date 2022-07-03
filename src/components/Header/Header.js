@@ -3,7 +3,7 @@ import "./Header.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Images from '../Images/Logo.png';
 import Cookie from 'universal-cookie';
-//import {link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const cookie = new Cookie();
 
@@ -32,9 +32,9 @@ function Header() {
     return (
         <React.Fragment >
             <nav id='header' className="navbar navbar-light bg-light" >
-                <a className="navbar-brand" href='localhost:3000/' >
+                <Link className="navbar-brand" to='localhost:3000/' >
                     <img className='logo' src={Images} alt='logo'></img>
-                </a>
+                </Link>
                 {
                     validateSession() ?
                     <div id="content">
@@ -42,9 +42,9 @@ function Header() {
                             <h4 id="welcome">Bienvenido {cookie.get('username')} :-D</h4>
                         </div>
                         <div className="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" className="btn btn-secondary">Navigation</button>
-                            <button type="button" className="btn btn-secondary">Search Album</button>
-                            <button type="button" className="btn btn-secondary">Album List</button>
+                            <Link type="button" to="#" className="btn btn-secondary">Navigation</Link>
+                            <Link type="button" to="#" className="btn btn-secondary">Search Album</Link>
+                            <Link type="button" to="#" className="btn btn-secondary">Album List</Link>
                             <button type="button" className="btn btn-secondary" onClick={() => cerrarSesion()}>Logout</button>
                         </div>
                     </div>
