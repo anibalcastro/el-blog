@@ -58,7 +58,7 @@ function Login(props) {
                 }
                 setDataUser(json);
                 props.setUser(dataUser);
-                //window.location.href = "./dashboard";
+                window.location.href = "./dashboard";
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
                 break;
