@@ -12,29 +12,33 @@ import NotFound from './components/NotFound/NotFound';
 import ImageModal from './components/ImageModal/ImageModal';
 
 
-function App() {
-  /*
-  const [users, setUsers] = useState([]);
-  const [album, setAlbum] = useState([]);
-  const [photos, setPhotos] = useState([]);
-  const urlUsers = 'https://jsonplaceholder.typicode.com/users';
-  const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
-  const urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
-  */
-  const [users, setUsers] = useState([]);
+function App(props) {
 
+ //Storage users, album, photos
+  const [users, setUsers] = useState([]);
+  const [idAlbum, setIdAlbum] = useState([]);
+  //const [photos, setPhotos] = useState([]);
+
+  //Set state users
   const setUser = (params) => {
     setUsers(params);
   }
 
+  //Set state albums
+  const setAlbums = (params) => {
+    setIdAlbum(params)
+  }
+
+  
+
   return (
     <div >
       <Router>
-        <Header />
+        <Header exist={users} />
         <Routes>
-        <Route exact path="/" element={<Login setUser={setUser} />}/>
-        <Route exact path="/dashboard" element={<Dashboard />}/>
-        <Route exact path="/myphotos" element={<Photos />}/>
+        <Route exact path="/" element={<Login set={setUser} />}/>
+        <Route exact path="/dashboard" element={<Dashboard  user={users} albumId={setAlbums} />}/>
+        <Route exact path="/myphotos" element={<Photos albumId={idAlbum} />}/>
         <Route exact path="/myphotos/:idPhoto" element={<ImageModal />}/>
         <Route exact path="*" element={<NotFound />}/>
 

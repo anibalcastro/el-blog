@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import './Photos.css';
-import Cookies from "universal-cookie";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ImageModal from '../ImageModal/ImageModal';
 
-function Photos() {
-    const cookies = new Cookies();
+function Photos(props) {
     const [photos, setPhotos] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
-
-    //const showModal = () => setIsOpen((prev) => !prev);
-
-
-
+    const [idAlbum, setIdAlbum] = useState([]);
+    const urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
 
     useEffect(() => {
-        console.log(isOpen);
         document.title = 'El Blog - Photos';
-        if (cookies.get('id')) {
-            axios.get('https://jsonplaceholder.typicode.com/photos')
-                .then(res => {
-                    //Data
-                    const response = res.data;
-                    setPhotos(response);
-                   // console.log('data: ', response);
-                    //console.log('state: ', photos);
-                });
-        }
+        setIdAlbum(props.albumId);
+        console.log(props);
+        console.log(idAlbum);
+        
+        let photosAlbum = [];
+        axios.get(urlPhotos)
+            .then(res => {
+                //Data
+                const response = res.data;
+                for (let x in response){
+                    if (response[x].albumId === idAlbum){
+                        photosAlbum.push({
+                            'albumId': response[x].albumId,
+                            'id': response[x].id,
+                            'title': response[x].title,
+                            'url': response[x].url,
+                            'thumbnailUrl': response[x].thumbnailUrl
+                        })
+                    }
+
+                }
+                setPhotos(photosAlbum);
+            });
     }, []);
 
 
@@ -48,8 +53,8 @@ function Photos() {
                                 <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} />
                                 <h6>{photo.title}</h6>
                             </a>
-                            
-                        
+
+
                         </div>
                     </div>
                 ))}

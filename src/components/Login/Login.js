@@ -8,6 +8,7 @@ import axios from 'axios';
 function Login(props) {
     const [users, setUsers] = useState([]);
     const [dataUser, setDataUser] = useState([]);
+    const urlUsers = 'https://jsonplaceholder.typicode.com/users';
 
     //https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
     const [inputValues, setInputValues] = useState({
@@ -27,7 +28,7 @@ function Login(props) {
         }
         else {
             */
-            axios.get('https://jsonplaceholder.typicode.com/users')
+            axios.get(urlUsers)
                 .then(res => {
                     //Data
                     const response = res.data;
@@ -57,10 +58,10 @@ function Login(props) {
                     email: users[x].email
                 }
                 setDataUser(json);
-                props.setUser(dataUser);
-                window.location.href = "./dashboard";
+                props.set(json);
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
+                window.location.href = "./dashboard";
                 break;
             }
         }

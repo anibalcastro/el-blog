@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 
 const cookie = new Cookie();
 
-function Header() {
+function Header(props) {
 
     const cerrarSesion = () => {
         cookie.remove('id', { path: "/" });
@@ -22,7 +22,8 @@ function Header() {
 
     const validateSession = () => {
         let valido = false;
-        if(cookie.get('id')){
+        console.log('Header props:',props.exist);
+        if(props.exists > 0){
             valido  = true;
         }
 

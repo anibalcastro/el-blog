@@ -37,4 +37,11 @@ h1,h4{
   color: #61dafb;
 }
 
+.loading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+}
+
 

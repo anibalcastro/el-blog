@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Dashboard.css';
 
 
-function Dashboard() {
-    const cookies = new Cookies();
+function Dashboard(props) {
 
     const [album, setAlbum] = useState([]);
-
-
-
+    const [dataUser, setDataUser] = useState([]);
+    const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
 
     useEffect(() => {
-
+        //Set title
         document.title = 'ElBlog - Dashboard';
+        
+        //Set info user login
+        const parentProps = props.user;
+        setDataUser(parentProps);
+        //let albumUser = [];
+        const idUser = dataUser.id;
 
-        let albumUser = [];
-
-        const idUser = cookies.get('id');
-        axios.get('https://jsonplaceholder.typicode.com/albums')
+        console.log('Dashboard Props:', props);
+        console.log('State: ',dataUser);
+        console.log('IdUser:', idUser);
+        
+        axios.get(urlAlbums)
             .then(res => {
                 //Data
                 const response = res.data;
+                setAlbum(response);
+                /*
                 for (let x in response) {
                     if (response[x].userId === parseInt(idUser)) {
                         albumUser.push({
@@ -34,9 +40,14 @@ function Dashboard() {
                     }
                 }
                 setAlbum(albumUser);
+                */
             });
 
-    });
+    }, []);
+
+    const setIdAlbum = (idAlbum) => {
+        props.albumId(idAlbum);
+    }
 
     return (
         <React.Fragment>
@@ -51,7 +62,7 @@ function Dashboard() {
                 {album.map((albums) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={albums.id}>
                         <div id='contImg' className="thumbnail img-responsive">
-                            <a href={`/myphotos `} title={albums.id}><img className='carpeta' src="https://img.icons8.com/material/480/folder-invoices--v1.png" alt={albums.title} /> </a>
+                            <a href={`/myphotos `} onClick={() => setIdAlbum(albums.id)} title={albums.id}><img className='carpeta' src="https://img.icons8.com/material/480/folder-invoices--v1.png" alt={albums.title} /> </a>
                             <h6>{albums.title}</h6>
                         </div>
                     </div>
