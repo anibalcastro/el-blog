@@ -5,9 +5,8 @@ import axios from 'axios';
 
 
 
-function Login(props) {
+function Login() {
     const [users, setUsers] = useState([]);
-    const [dataUser, setDataUser] = useState([]);
     const urlUsers = 'https://jsonplaceholder.typicode.com/users';
 
     //https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
@@ -20,22 +19,25 @@ function Login(props) {
         setInputValues({ ...inputValues, [name]: value });
     });
 
+    const isLogged = () => {
+        const user = JSON.parse(window.localStorage.getItem('UserLogged'));
+        if (user) {
+            window.location = ('/dashboard');
+        }
+    }
+
     //UseEffect
     useEffect(() => {
         document.title = 'El Blog - Login';
-        /*if (!dataUser) {
-            window.location.href = "./dashboard";
-        }
-        else {
-            */
-            axios.get(urlUsers)
-                .then(res => {
-                    //Data
-                    const response = res.data;
-                    setUsers(response);
-                    console.log('users: ', response);
-                    console.log('state: ', users);
-                });
+        isLogged();
+        axios.get(urlUsers)
+            .then(res => {
+                //Data
+                const response = res.data;
+                setUsers(response);
+                console.log('users: ', response);
+                console.log('state: ', users);
+            });
         //}
     }, []);
 
@@ -52,13 +54,12 @@ function Login(props) {
                 console.log('Datos Correctos')
                 alert(`Bienvenido ${users[x].name}`);
                 let json = {
-                    id: users[x].id, 
+                    id: users[x].id,
                     name: users[x].name,
                     username: users[x].username,
                     email: users[x].email
                 }
-                setDataUser(json);
-                props.set(json);
+                localStorage.setItem('UserLogged', JSON.stringify(json));
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
                 window.location.href = "./dashboard";
@@ -66,7 +67,7 @@ function Login(props) {
             }
         }
 
-        if(!dataEncontrada){
+        if (!dataEncontrada) {
             alert('Error, datos ingresados, no coinciden.');
             document.getElementById('formLogin').reset();
         }
@@ -76,18 +77,18 @@ function Login(props) {
     return (
         <React.Fragment>
 
-                <div className="wrapper fadeInDown">
-                    <div id="formContent">
-                        <div className="fadeIn first">
-                            <h4 className='title'>Login</h4>
-                        </div>
-                        <form id='formLogin'>
-                            <input onChange={handleOnChange} type="text" id="login" className="fadeIn second" name="username" placeholder="User or email" ></input>
-                            <input onChange={handleOnChange} type="password" id="current-password" autoComplete='on' className="fadeIn third" name="password" placeholder="Your password" ></input>
-                        </form>
-                        <input onClick={() => iniciarSesion()} type="submit" className="fadeIn fourth" value="Log In"></input>
+            <div className="wrapper fadeInDown">
+                <div id="formContent">
+                    <div className="fadeIn first">
+                        <h4 className='title'>Login</h4>
                     </div>
+                    <form id='formLogin'>
+                        <input onChange={handleOnChange} type="text" id="login" className="fadeIn second" name="username" placeholder="User or email" ></input>
+                        <input onChange={handleOnChange} type="password" id="current-password" autoComplete='on' className="fadeIn third" name="password" placeholder="Your password" ></input>
+                    </form>
+                    <input onClick={() => iniciarSesion()} type="submit" className="fadeIn fourth" value="Log In"></input>
                 </div>
+            </div>
         </React.Fragment>
     );
 }

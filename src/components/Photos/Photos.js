@@ -8,11 +8,21 @@ function Photos(props) {
     const [idAlbum, setIdAlbum] = useState([]);
     const urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
 
+    const isLogged = () => {
+        const user = JSON.parse(window.localStorage.getItem('UserLogged'));
+        if (!user) {
+            window.location = ('/');
+        }
+    }
+
     useEffect(() => {
         document.title = 'El Blog - Photos';
+        isLogged();
         setIdAlbum(props.albumId);
         console.log(props);
         console.log(idAlbum);
+        const albumSelected = localStorage.getItem('AlbumSelect');
+        console.log(Number(albumSelected));
         
         let photosAlbum = [];
         axios.get(urlPhotos)
@@ -20,7 +30,7 @@ function Photos(props) {
                 //Data
                 const response = res.data;
                 for (let x in response){
-                    if (response[x].albumId === idAlbum){
+                    if (response[x].albumId === Number(albumSelected)){
                         photosAlbum.push({
                             'albumId': response[x].albumId,
                             'id': response[x].id,

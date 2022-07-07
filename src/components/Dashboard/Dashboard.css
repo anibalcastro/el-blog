@@ -38,3 +38,15 @@ h1{
     align-items: center;
     padding-left: 20px;
 }
+
+.boton-transparente{
+  display: inline-block;
+  width: 200px;
+  padding: 8px;
+  color: #282c34;
+  text-align: center;
+  outline: none;
+  text-decoration: none;
+  transition: background-color 0.2s ease-out,
+              color 0.2s ease-out
+}

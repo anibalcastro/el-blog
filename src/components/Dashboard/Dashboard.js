@@ -4,23 +4,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Dashboard.css';
 
 
-function Dashboard(props) {
+function Dashboard() {
 
     const [album, setAlbum] = useState([]);
     const [dataUser, setDataUser] = useState([]);
     const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
 
+    const isLogged = () => {
+        const user = JSON.parse(window.localStorage.getItem('UserLogged'));
+        if (!user) {
+            window.location = ('/');
+        }
+    }
+
     useEffect(() => {
         //Set title
         document.title = 'ElBlog - Dashboard';
-        
-        //Set info user login
-        const parentProps = props.user;
-        setDataUser(parentProps);
-        //let albumUser = [];
-        const idUser = dataUser.id;
+        isLogged();
+        const user = JSON.parse(window.localStorage.getItem('UserLogged'))
+        setDataUser(user);
+        const idUser = user.id;
+        const albumUser = [];
 
-        console.log('Dashboard Props:', props);
         console.log('State: ',dataUser);
         console.log('IdUser:', idUser);
         
@@ -29,7 +34,6 @@ function Dashboard(props) {
                 //Data
                 const response = res.data;
                 setAlbum(response);
-                /*
                 for (let x in response) {
                     if (response[x].userId === parseInt(idUser)) {
                         albumUser.push({
@@ -40,13 +44,16 @@ function Dashboard(props) {
                     }
                 }
                 setAlbum(albumUser);
-                */
             });
 
     }, []);
 
+    
+
     const setIdAlbum = (idAlbum) => {
-        props.albumId(idAlbum);
+        const url = `myphotos`;
+        window.localStorage.setItem('AlbumSelect', JSON.stringify(idAlbum));
+        window.location = url;
     }
 
     return (
@@ -62,7 +69,7 @@ function Dashboard(props) {
                 {album.map((albums) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={albums.id}>
                         <div id='contImg' className="thumbnail img-responsive">
-                            <a href={`/myphotos `} onClick={() => setIdAlbum(albums.id)} title={albums.id}><img className='carpeta' src="https://img.icons8.com/material/480/folder-invoices--v1.png" alt={albums.title} /> </a>
+                            <button className="boton-transparente" onClick={() => setIdAlbum(albums.id)}  title={albums.id}><img className='carpeta' src="https://img.icons8.com/material/480/folder-invoices--v1.png" alt={albums.title} /> </button>
                             <h6>{albums.title}</h6>
                         </div>
                     </div>

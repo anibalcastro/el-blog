@@ -2,28 +2,26 @@ import React from "react";
 import "./Header.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Images from '../Images/Logo.png';
-import Cookie from 'universal-cookie';
 import {Link} from 'react-router-dom';
 
-const cookie = new Cookie();
+function Header() {
 
-function Header(props) {
+    //Storage name to user logged
+    let name = '';
 
+    //Function to logout
     const cerrarSesion = () => {
-        cookie.remove('id', { path: "/" });
-        cookie.remove('name', { path: "/" });
-        cookie.remove('username', { path: "/" });
-        cookie.remove('email', { path: "/" });
-        cookie.remove('adress', { path: "/" });
-        cookie.remove('phone', { path: "/" });
-        cookie.remove('website', { path: "/" });
+        localStorage.removeItem('UserLogged');
+        localStorage.removeItem('AlbumSelect');
         window.location.href = "/";
     }
 
+    //Funtion to show menu
     const validateSession = () => {
         let valido = false;
-        console.log('Header props:',props.exist);
-        if(props.exists > 0){
+        const userLogged = JSON.parse(localStorage.getItem('UserLogged'));
+        if(userLogged){
+            name = userLogged.name;
             valido  = true;
         }
 
@@ -40,7 +38,7 @@ function Header(props) {
                     validateSession() ?
                     <div id="content">
                         <div>
-                            <h4 id="welcome">Bienvenido {cookie.get('username')} :-D</h4>
+                            <h4 id="welcome">Bienvenido {name} :-D</h4>
                         </div>
                         <div className="btn-group" role="group" aria-label="Basic example">
                             <Link type="button" to="#" className="btn btn-secondary">Navigation</Link>
