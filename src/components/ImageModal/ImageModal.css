@@ -1,37 +1,54 @@
- 
+:root
+{
+    --color1: rgba(48, 63, 62, 0.521);
+    --color2: #aaa5a5;
+    --color3: white;
+    --color4: #db6930;
+    --colo55: ;
+}
+
 html, body{
-    background-color: #aaa5a5;
+    background-color: var(--color2);
 }
 
 .modal {
-    position : fixed;
-    background-color: #aaa5a5;
+    background-color: var(--color2);
     display: flex;
     justify-content: center;
-    height: 90%;
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 20px;
 }
 
 .modal-content {
     width: 80%;
-    background-color: rgb(8, 8, 8);
-    color: rgb(248, 245, 245);
+    height: 115%;
+    background-image: url("https://static.ideal.es/www/multimedia/201907/16/media/cortadas/fotografias-vintage-kiPC-U80770325546cmH-624x385@Ideal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.modal-header, .modal-footer {
-    padding: 10px;
-    color: black;
+.modal-background{
+    background: var(--color1);
+}
+
+.modal-header{
+    background-color: #515151;
+} 
+
+.modal-footer {
+    background-color: var(--color4);
 }
 
 .modal-title {
     margin:0;
+    color: var(--color3);
+    margin: auto;
 }
 
 .modal-body {
-    padding:10px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
