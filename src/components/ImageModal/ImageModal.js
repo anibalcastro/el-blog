@@ -40,13 +40,15 @@ export default function ImageModal() {
             <div className='modal'>
                 <div className='modal-content'>
                     <div className='modal-header'>
-                        <h4 className='modal-title'>{detalle[1]}</h4>
+                        <h4 className='modal-title'>{detalle[2]}</h4>
                     </div>
-                    <div className='modal-body'>
-                        <img src={detalle[3]} alt={detalle[2]}/>
+                    <div className='modal-background'>
+                        <div className='modal-body'>
+                            <img src={detalle[3]} alt={detalle[2]}/>
+                        </div>
                     </div>
                     <div className='modal-footer'>
-                        <button onClick={cerrarModal} className='button'>Close</button>
+                        <button type="button" onClick={cerrarModal} class="btn btn-dark">Close</button>
                     </div>
                 </div>
             </div>
