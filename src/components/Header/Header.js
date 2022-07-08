@@ -41,9 +41,8 @@ function Header() {
                             <h4 id="welcome">Bienvenido {name} :-D</h4>
                         </div>
                         <div className="btn-group" role="group" aria-label="Basic example">
-                            <Link type="button" to="#" className="btn btn-secondary">Navigation</Link>
                             <Link type="button" to="#" className="btn btn-secondary">Search Album</Link>
-                            <Link type="button" to="#" className="btn btn-secondary">Album List</Link>
+                            <Link type="button" to="/dashboard" className="btn btn-secondary">Album List</Link>
                             <button type="button" className="btn btn-secondary" onClick={() => cerrarSesion()}>Logout</button>
                         </div>
                     </div>

@@ -21,7 +21,7 @@ function Photos(props) {
         setIdAlbum(props.albumId);
         console.log(props);
         console.log(idAlbum);
-        const albumSelected = localStorage.getItem('AlbumSelect');
+        const albumSelected = localStorage.getItem('AlbumSelected');
         console.log(Number(albumSelected));
         
         let photosAlbum = [];
@@ -45,6 +45,11 @@ function Photos(props) {
             });
     }, []);
 
+    const imageSelect = (idImage) => {
+        window.localStorage.setItem('PhotoSelected', JSON.stringify(idImage));
+        window.location = (`/myphotos/${idImage}`);
+    }
+
 
     return (
         <React.Fragment>
@@ -59,10 +64,10 @@ function Photos(props) {
                 {photos.map((photo) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={photo.id}>
                         <div id='contImg' className="thumbnail img-responsive">
-                            <a href={`/myphotos/${photo.id}`}>
-                                <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} />
+                          
+                                <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} onClick={() => imageSelect(photo.id)}/>
                                 <h6>{photo.title}</h6>
-                            </a>
+                      
 
 
                         </div>
