@@ -62,7 +62,7 @@ function Login() {
                 localStorage.setItem('UserLogged', JSON.stringify(json));
                 dataEncontrada = true;
                 document.getElementById('formLogin').reset();
-                window.location.href = "./dashboard";
+                window.location.href = "./dashboard/navigator";
                 break;
             }
         }

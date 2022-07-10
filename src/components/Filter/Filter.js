@@ -6,7 +6,6 @@ export default function Filter(props) {
 
     //Se guarda el estado.
     const [inputValues, setInputValues] = useState({ filter: '' });
-    const [albumFilter, setAlbumFilter] = useState([]);
     const [album, setAlbum] = useState([]);
     const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
 
@@ -14,44 +13,21 @@ export default function Filter(props) {
     const handleOnChange = useCallback(event => {
         const { name, value } = event.target;
         setInputValues({ ...inputValues, [name]: value });
-        const newArray = filter();
+        const newArray = filtrar(event.target.value);
         props.setArray(newArray);
         //console.log(inputValues.filter);
         //console.log(albumFilter);
     });
 
-    //Filtro
-    const filter = () =>{
-        let buscar = inputValues.filter;
-        //console.log(buscar);
-        let newArray = [];
-        if(buscar === ""){
-            newArray.push(album);
-        }
-        else{
-            for (let x in album){
-                if (album[x].title.includes(buscar)){
-                  //console.log("Existe", album[x].title);
-                  newArray.push(album[x]);
-                }else{
-                  const separar = album[x].title.split(" ");
-                  //console.log(separar);
-                  for (let y in separar){
-                    if (separar[y] === buscar){
-                      //console.log("Existe separando", separar[y]);
-                      newArray.push(album[x]);
-                    }
-                  }
-          
-                }
-              }
-              
-        }
-        //console.log(newArray);
-        setAlbumFilter(newArray);
-        props.setArray(newArray);
-        return newArray;
-      }
+    const filtrar = (terminoBuscar) => {
+        let resultadoBusqueda = album.filter((elemento) => {
+            if (elemento.title.toString().includes(terminoBuscar)){
+                return elemento;
+            }
+        })
+        props.setArray(resultadoBusqueda);
+        console.log('resultadoBusqueda',resultadoBusqueda);
+    }
 
 
 
@@ -63,7 +39,7 @@ useEffect(() => {
     const idUser = user.id;
     const albumUser = [];
 
-    console.log('IdUser:', idUser);
+    //console.log('IdUser:', idUser);
 
     axios.get(urlAlbums)
         .then(res => {
