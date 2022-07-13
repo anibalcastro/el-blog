@@ -58,16 +58,16 @@ function Dashboard() {
         return albumUser;
     }
 
-    const setAlbumsFilter = (array) => {
+    const setAlbumsFilter = (arrayFilter) => {
         const indefinido = undefined;
-        const arreglo = indefinido || array;
-        if (array[0] === false) {
+        const arreglo = indefinido || arrayFilter;
+        if (arreglo[0] === false) {
             console.log('dataUser ID',dataUser.id)
             getAlbums(dataUser.id);
 
         }
         else {
-            setAlbum(array);
+            setAlbum(arrayFilter);
         }
     }
     
