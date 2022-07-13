@@ -8,9 +8,9 @@ import Filter from '../Filter/Filter';
 
 function Dashboard() {
 
-    const [album, setAlbum] = useState([]);
-    const [dataUser, setDataUser] = useState([]);
-    const urlAlbums = 'https://jsonplaceholder.typicode.com/albums'; //URL APY
+    const [album, setAlbum] = useState([]); //Se almacena los albums del usuarios.
+    const [dataUser, setDataUser] = useState([]); //Se almacena los datos del usuario.
+    const urlAlbums = 'https://jsonplaceholder.typicode.com/albums'; //URL APY.
 
 
     //Autentication.
