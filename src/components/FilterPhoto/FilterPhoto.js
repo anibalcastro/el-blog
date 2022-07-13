@@ -21,6 +21,7 @@ export default function FilterPhoto(props) {
         //console.log(albumFilter);
     });
 
+    //Funcion para filtrar por una palabra en especifico.
     const filtrar = (terminoBuscar) => {
         let resultadoBusqueda = photo.filter((elemento) => {
             if (elemento.title.toString().includes(terminoBuscar)) {

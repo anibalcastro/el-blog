@@ -9,16 +9,18 @@ function Login() {
     const [users, setUsers] = useState([]);
     const urlUsers = 'https://jsonplaceholder.typicode.com/users';
 
-    //https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
+    //Estado de los inputs
     const [inputValues, setInputValues] = useState({
         username: '', password: ''
     });
 
+    //Cualquier cambio, se guarde en el estado
     const handleOnChange = useCallback(event => {
         const { name, value } = event.target;
         setInputValues({ ...inputValues, [name]: value });
     });
 
+    //Validar si esta logueado
     const isLogged = () => {
         const user = JSON.parse(window.localStorage.getItem('UserLogged'));
         if (user) {
@@ -41,9 +43,7 @@ function Login() {
         //}
     }, []);
 
-
-
-
+    //Funcion para iniciar sesion.
     const iniciarSesion = () => {
         let dataEncontrada = false;
         console.log(users);

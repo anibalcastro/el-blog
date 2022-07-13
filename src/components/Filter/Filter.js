@@ -19,52 +19,53 @@ export default function Filter(props) {
         //console.log(albumFilter);
     });
 
+    //Funcion para filtrar por un termino en especifico.
     const filtrar = (terminoBuscar) => {
         let resultadoBusqueda = album.filter((elemento) => {
-            if (elemento.title.toString().includes(terminoBuscar)){
+            if (elemento.title.toString().includes(terminoBuscar)) {
                 return elemento;
             }
         })
         props.setArray(resultadoBusqueda);
-        console.log('resultadoBusqueda',resultadoBusqueda);
+        //console.log('resultadoBusqueda',resultadoBusqueda);
     }
 
 
+    //useEffect
+    useEffect(() => {
+        //Set title
+        document.title = 'ElBlog - Dashboard';
+        //isLogged();
+        const user = JSON.parse(window.localStorage.getItem('UserLogged'))
+        const idUser = user.id;
+        const albumUser = [];
 
-useEffect(() => {
-    //Set title
-    document.title = 'ElBlog - Dashboard';
-    //isLogged();
-    const user = JSON.parse(window.localStorage.getItem('UserLogged'))
-    const idUser = user.id;
-    const albumUser = [];
+        //console.log('IdUser:', idUser);
 
-    //console.log('IdUser:', idUser);
-
-    axios.get(urlAlbums)
-        .then(res => {
-            //Data
-            const response = res.data;
-            for (let x in response) {
-                if (response[x].userId === parseInt(idUser)) {
-                    albumUser.push({
-                        'userId': response[x].userId,
-                        'id': response[x].id,
-                        'title': response[x].title
-                    });
+        axios.get(urlAlbums)
+            .then(res => {
+                //Data
+                const response = res.data;
+                for (let x in response) {
+                    if (response[x].userId === parseInt(idUser)) {
+                        albumUser.push({
+                            'userId': response[x].userId,
+                            'id': response[x].id,
+                            'title': response[x].title
+                        });
+                    }
                 }
-            }
-            setAlbum(albumUser);
-        });
+                setAlbum(albumUser);
+            });
 
-}, []);
+    }, []);
 
-return (
-    <React.Fragment>
-        <form className='formFilter'>
-            <input onChange={handleOnChange} type='text' className='filterInput' name='filter' placeholder='Search Album' ></input>
-        </form>
-    </React.Fragment>
-)
+    return (
+        <React.Fragment>
+            <form className='formFilter'>
+                <input onChange={handleOnChange} type='text' className='filterInput' name='filter' placeholder='Search Album' ></input>
+            </form>
+        </React.Fragment>
+    )
 }
 

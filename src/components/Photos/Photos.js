@@ -5,11 +5,12 @@ import './Photos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Photos() {
-    const [photos, setPhotos] = useState([]);
-    const [idAlbum, setIdAlbum] = useState([]);
-    const urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
-    
+    const [photos, setPhotos] = useState([]); //Estado de las fotos del album
+    const [idAlbum, setIdAlbum] = useState([]); //Estado del album seleccionado.
+    const urlPhotos = 'https://jsonplaceholder.typicode.com/photos'; //Url APY
 
+
+    //Validar si esta logueado
     const isLogged = () => {
         const user = JSON.parse(window.localStorage.getItem('UserLogged'));
         if (!user) {
@@ -17,37 +18,7 @@ function Photos() {
         }
     }
 
-    /*useEffect(() => {
-        document.title = 'El Blog - Photos';
-        isLogged();
-        setIdAlbum(props.albumId);
-        console.log(props);
-
-        console.log(idAlbum);
-        const albumSelected = localStorage.getItem('AlbumSelected');
-        console.log(Number(albumSelected));
-        
-        let photosAlbum = [];
-        axios.get(urlPhotos)
-            .then(res => {
-                //Data
-                const response = res.data;
-                for (let x in response){
-                    if (response[x].albumId === Number(albumSelected)){
-                        photosAlbum.push({
-                            'albumId': response[x].albumId,
-                            'id': response[x].id,
-                            'title': response[x].title,
-                            'url': response[x].url,
-                            'thumbnailUrl': response[x].thumbnailUrl
-                        })
-                    }
-
-                }
-                setPhotos(photosAlbum);
-            });
-    }, []);*/
-
+    //useEffect
     useEffect(() => {
         document.title = 'El Blog - Photos';
         isLogged();
@@ -57,6 +28,7 @@ function Photos() {
         /*setPhotoFilter(getphotos());*/
     }, []);
 
+    //Funcion para obtener las fotos.
     const getphotos = () => {
         const albumSelected = localStorage.getItem('AlbumSelected');
         //console.log(Number(albumSelected));
@@ -82,21 +54,23 @@ function Photos() {
             });
     }
 
+    //Funcion para ridereccionar al modal.
     const imageSelect = (idImage) => {
         window.localStorage.setItem('PhotoSelected', JSON.stringify(idImage));
         window.location = (`/myphotos/${idImage}`);
     }
 
+    //Set result in setphotos.
     const setPhotoFilter = (arrayFilter) => {
         const indefinido = undefined;
         const arreglo = indefinido || arrayFilter;
         if (arreglo[0] === false) {
-            console.log('dataUser ID',idAlbum.idImage)
-            getphotos(idAlbum); 
+            console.log('dataUser ID', idAlbum.idImage)
+            getphotos(idAlbum);
         }
         else {
             setPhotos(arrayFilter);
-            
+
         }
     }
 
@@ -107,16 +81,16 @@ function Photos() {
                     <h1>Photos</h1>
                 </div>
             </div>
-            <Filter setArray={setPhotoFilter}/>
-            
+            <Filter setArray={setPhotoFilter} />
+
 
             {photos[0] ? <div className="row">
                 {photos.map((photo) => (
                     <div id='cont' className="col-lg-4 col-sm-6" key={photo.id}>
                         <div id='contImg' className="thumbnail img-responsive">
-                          
-                                <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} onClick={() => imageSelect(photo.id)}/>
-                                <h6>{photo.title}</h6>
+
+                            <img className='carpeta' src={photo.thumbnailUrl} alt={photo.title} onClick={() => imageSelect(photo.id)} />
+                            <h6>{photo.title}</h6>
                         </div>
                     </div>
                 ))}

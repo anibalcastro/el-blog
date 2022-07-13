@@ -13,6 +13,7 @@ function Dashboard() {
     const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
 
 
+    //Autentication.
     const isLogged = () => {
         const user = JSON.parse(window.localStorage.getItem('UserLogged'));
         if (!user) {
@@ -20,6 +21,7 @@ function Dashboard() {
         }
     }
 
+    //UseEffect
     useEffect(() => {
         //Set title
         document.title = 'ElBlog - Dashboard';
@@ -31,13 +33,14 @@ function Dashboard() {
     }, []);
 
 
-
+    //Set album selected
     const setIdAlbum = (idAlbum) => {
         const url = `myphotos`;
         window.localStorage.setItem('AlbumSelected', JSON.stringify(idAlbum));
         window.location = url;
     }
 
+    //Function to get Albums 
     const getAlbums = (user) => {
         const idUser = user.id;
         //console.log('idUser', idUser);
@@ -52,17 +55,18 @@ function Dashboard() {
                         albumUser.push(response[x]);
                     }
                 }
-                console.log('albumUser',albumUser);
-                setAlbum(albumUser); 
+                console.log('albumUser', albumUser);
+                setAlbum(albumUser);
             });
         return albumUser;
     }
 
+    //Set albums 
     const setAlbumsFilter = (arrayFilter) => {
         const indefinido = undefined;
         const arreglo = indefinido || arrayFilter;
         if (arreglo[0] === false) {
-            console.log('dataUser ID',dataUser.id)
+            console.log('dataUser ID', dataUser.id)
             getAlbums(dataUser.id);
 
         }
@@ -70,7 +74,7 @@ function Dashboard() {
             setAlbum(arrayFilter);
         }
     }
-    
+
     return (
         <React.Fragment>
             <div className="container">
@@ -93,18 +97,6 @@ function Dashboard() {
                 </div> : <div className='loading'> <h4>NOT FOUND...</h4> </div>
 
             }
-
-            {/*album[0] ? <div className="row">
-                {album.map((albums) => (
-                    <div id='cont' className="col-lg-4 col-sm-6" key={albums.id}>
-                        <div id='contImg' className="thumbnail img-responsive">
-                            <img className='carpeta' src="https://img.icons8.com/material/480/folder-invoices--v1.png" alt={albums.title} onClick={() => setIdAlbum(albums.id)} />
-                            <h6>{albums.title}</h6>
-                        </div>
-                    </div>
-                ))}
-            </div> : <div className='loading'> <h4>Loading...</h4> </div>
-                */}
         </React.Fragment>
     )
 }
