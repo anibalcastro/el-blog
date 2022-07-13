@@ -7,7 +7,7 @@ const RestrictedAccess = () => {
     <React.Fragment>
          <div className="contenedor">
                 <h1>ERROR RESTRICTED ACCESS</h1>
-                <Link to={'/myphotos'}>Back</Link>
+                <Link className="btn btn-dark" to={'/myphotos'}>Back</Link>
             </div>
     </React.Fragment>
   )
