@@ -10,7 +10,7 @@ function Dashboard() {
 
     const [album, setAlbum] = useState([]);
     const [dataUser, setDataUser] = useState([]);
-    const urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
+    const urlAlbums = 'https://jsonplaceholder.typicode.com/albums'; //URL APY
 
 
     //Autentication.

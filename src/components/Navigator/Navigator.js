@@ -15,6 +15,7 @@ const Navigator = () => {
 
   //useEffect
   useEffect(() => {
+    document.title = 'El blog - Navigation';
     isLogged();
     const user = JSON.parse(window.localStorage.getItem('UserLogged'));
     setDataUser(user);
